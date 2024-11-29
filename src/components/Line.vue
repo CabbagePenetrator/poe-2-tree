@@ -9,7 +9,7 @@ const props = defineProps({
   <v-line
     :config="{
       points: [node.x, node.y, parent.x, parent.y],
-      stroke: node.selected ? 'white' : 'gray',
+      stroke: node.isSelected ? 'white' : 'gray',
       strokeWidth: 4,
       lineCap: 'round',
     }"

@@ -4,27 +4,27 @@
     "parent_id": null,
     "x": 1050,
     "y": 500,
-    "selected": false
+    "isSelected": false
   },
   {
     "id": 2,
     "parent_id": 1,
     "x": 1130,
     "y": 515,
-    "selected": false
+    "isSelected": false
   },
   {
     "id": 3,
     "parent_id": 2,
     "x": 1210,
     "y": 460,
-    "selected": false
+    "isSelected": false
   },
   {
     "id": 4,
     "parent_id": 2,
     "x": 1210,
     "y": 570,
-    "selected": false
+    "isSelected": false
   }
 ]

@@ -14,11 +14,11 @@ const config = {
 const selectNode = (selectedNode) => {
   const parent = nodes.value.find((node) => node.id === selectedNode.parent_id)
 
-  if (parent && !parent.selected) {
+  if (parent && !parent.isSelected) {
     return false
   }
 
-  nodes.value.find((node) => node.id === selectedNode.id).selected = true
+  nodes.value.find((node) => node.id === selectedNode.id).isSelected = true
 }
 </script>
 
