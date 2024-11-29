@@ -12,6 +12,20 @@ const config = {
 }
 
 const selectNode = (selectedNode) => {
+  if (selectedNode.isSelected) {
+    const selectedChild = nodes.value
+      .filter((node) => node.parent_id === selectedNode.id)
+      .find((node) => node.isSelected)
+
+    if (selectedChild) {
+      return false
+    }
+
+    nodes.value.find((node) => node.id === selectedNode.id).isSelected = false
+
+    return
+  }
+
   const parent = nodes.value.find((node) => node.id === selectedNode.parent_id)
 
   if (parent && !parent.isSelected) {
