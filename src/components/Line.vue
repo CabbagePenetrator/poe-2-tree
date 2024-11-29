@@ -3,15 +3,15 @@ const props = defineProps({
   node: Object,
   parent: Object,
 })
-
-const config = {
-  points: [props.node.x, props.node.y, props.parent.x, props.parent.y],
-  stroke: 'gray',
-  strokeWidth: 4,
-  lineCap: 'round',
-}
 </script>
 
 <template>
-  <v-line :config="config"></v-line>
+  <v-line
+    :config="{
+      points: [node.x, node.y, parent.x, parent.y],
+      stroke: node.selected ? 'white' : 'gray',
+      strokeWidth: 4,
+      lineCap: 'round',
+    }"
+  />
 </template>

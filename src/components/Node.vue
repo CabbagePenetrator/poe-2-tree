@@ -1,19 +1,19 @@
 <script setup>
 const props = defineProps({
-  x: Number,
-  y: Number,
+  node: Object,
 })
-
-const config = {
-  x: props.x,
-  y: props.y,
-  radius: 15,
-  fill: '#27254e',
-  stroke: '#5d4c2a',
-  strokeWidth: 4,
-}
 </script>
 
 <template>
-  <v-circle :config="config"></v-circle>
+  <v-circle
+    :config="{
+      x: node.x,
+      y: node.y,
+      radius: 15,
+      fill: '#27254e',
+      stroke: node.selected ? 'white' : '#5d4c2a',
+      strokeWidth: 4,
+    }"
+    @click="$emit('selected', node)"
+  />
 </template>

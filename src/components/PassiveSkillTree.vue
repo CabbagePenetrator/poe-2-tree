@@ -1,11 +1,19 @@
 <script setup>
-import nodes from '@/assets/nodes.json'
+import nodesJson from '@/assets/nodes.json'
 import Node from '@/components/Node.vue'
 import Line from '@/components/Line.vue'
+import { ref } from 'vue'
+
+const nodes = ref(nodesJson)
 
 const config = {
   width: window.innerWidth,
   height: window.innerHeight,
+}
+
+const selectNode = (selected) => {
+  const id = selected.id
+  nodes.value.find((node) => node.id === id).selected = true
 }
 </script>
 
@@ -13,7 +21,7 @@ const config = {
   <v-stage :config="config">
     <v-layer>
       <template v-for="node in nodes">
-        <Node :x="node.x" :y="node.y" />
+        <Node :node="node" @selected="selectNode" />
         <Line
           v-if="node.parent_id"
           :node="node"
