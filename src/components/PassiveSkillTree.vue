@@ -59,7 +59,11 @@ const selectNode = (selectedNode) => {
         }"
       />
       <template v-for="node in nodes">
-        <Node :node="node" @selected="selectNode" />
+        <Node
+          :node="node"
+          :parent="nodes.find((parent) => parent.id === node.parent_id)"
+          @selected="selectNode"
+        />
         <Line
           v-if="node.parent_id"
           :node="node"
