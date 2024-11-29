@@ -1,31 +1,25 @@
 <script setup>
+import nodes from '@/assets/nodes.json'
 import Node from '@/components/Node.vue'
+import Line from '@/components/Line.vue'
 
 const config = {
   width: window.innerWidth,
   height: window.innerHeight,
 }
-
-const nodes = [
-  {
-    id: 1,
-    parent: null,
-    x: 1100,
-    y: 550,
-  },
-  {
-    id: 2,
-    parent: 1,
-    x: 1180,
-    y: 450,
-  },
-]
 </script>
 
 <template>
   <v-stage :config="config">
     <v-layer>
-      <Node v-for="node in nodes" :x="node.x" :y="node.y" />
+      <template v-for="node in nodes">
+        <Node :x="node.x" :y="node.y" />
+        <Line
+          v-if="node.parent_id"
+          :node="node"
+          :parent="nodes.find((parent) => parent.id === node.parent_id)"
+        />
+      </template>
     </v-layer>
   </v-stage>
 </template>
