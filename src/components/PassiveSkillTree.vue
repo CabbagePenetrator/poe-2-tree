@@ -11,9 +11,14 @@ const config = {
   height: window.innerHeight,
 }
 
-const selectNode = (selected) => {
-  const id = selected.id
-  nodes.value.find((node) => node.id === id).selected = true
+const selectNode = (selectedNode) => {
+  const parent = nodes.value.find((node) => node.id === selectedNode.parent_id)
+
+  if (parent && !parent.selected) {
+    return false
+  }
+
+  nodes.value.find((node) => node.id === selectedNode.id).selected = true
 }
 </script>
 
