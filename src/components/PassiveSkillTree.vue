@@ -2,14 +2,35 @@
 import nodesJson from '@/assets/nodes.json'
 import Node from '@/components/Node.vue'
 import Line from '@/components/Line.vue'
-import { ref } from 'vue'
+import { onMounted, onUnmounted, useTemplateRef, ref } from 'vue'
 
 const nodes = ref(nodesJson)
 const points = ref(123)
+const dragBg = useTemplateRef('dragBg')
 
-const config = {
+const config = ref({
   width: window.innerWidth,
   height: window.innerHeight,
+})
+
+
+const resizeHandler = () => {
+  config.value.width = window.innerWidth
+  config.value.height = window.innerHeight
+}
+
+onMounted(() => {
+  window.addEventListener('resize', resizeHandler)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', resizeHandler)
+})
+
+const handleDragEnd = () => {
+  if (dragBg.value) {
+    dragBg.value.getNode().absolutePosition({ x: 0, y: 0 })
+  }
 }
 
 const selectNode = (selectedNode) => {
@@ -58,6 +79,21 @@ const selectNode = (selectedNode) => {
           fontSize: 14,
         }"
       />
+    </v-layer>
+    <v-layer
+      @dragend="handleDragEnd"
+      :config="{
+        draggable: true,
+      }"
+    >
+      <v-rect
+        ref="dragBg"
+        :config="{
+          width: config.width,
+          height: config.height,
+        }"
+      >
+      </v-rect>
       <template v-for="node in nodes">
         <Node
           :node="node"
