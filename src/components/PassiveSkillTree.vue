@@ -1,7 +1,7 @@
 <script setup>
 import nodesJson from '@/assets/nodes.json'
 import Node from '@/components/Nodes/Node.vue'
-import Line from '@/components/Line.vue'
+import Line from '@/components/Lines/Line.vue'
 import { computed, ref } from 'vue'
 
 const nodes = ref(nodesJson)

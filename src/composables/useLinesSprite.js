@@ -25,10 +25,20 @@ export function useLinesSprite() {
     return { x: 0, y: 14 }
   }
 
+  const getNormalClipCoords = () => {
+    return { x: 6, y: 1106 }
+  }
+
+  const getSelectedClipCoords = () => {
+    return { x: 6, y: 1124 }
+  }
+
   return {
     sprite,
     getNormalLineCoords,
     getSelectableLineCoords,
     getSelectedLineCoords,
+    getNormalClipCoords,
+    getSelectedClipCoords,
   }
 }
