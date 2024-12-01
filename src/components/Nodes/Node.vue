@@ -52,7 +52,7 @@ const skillCoords = getCoordsForSkill(props.node.skill)
       fillPatternOffset: spriteCoords,
     }"
     @click="$emit('selected', node)"
-    @mouseover="$emit('showTooltip', node)"
+    @mouseenter="$emit('showTooltip', node)"
     @mouseleave="$emit('hideTooltip', node)"
   />
 </template>

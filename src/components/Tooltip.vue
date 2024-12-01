@@ -62,11 +62,11 @@ const middleImageWidth = computed(() => {
   <!-- Node name -->
   <v-text
     :config="{
-      x: x,
+      x: x + 10,
       y: y,
-      width: tooltipWidth,
+      width: tooltipWidth - 10,
       height: 54,
-      text: node.name,
+      text: node?.name,
       fill: '#F9E6CA',
       align: 'center',
       verticalAlign: 'middle',
