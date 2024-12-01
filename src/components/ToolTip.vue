@@ -11,7 +11,7 @@ const { x, y } = useMouse()
 <template>
   <v-text
     :config="{
-      x: x,
+      x: x + 10,
       y: y,
       text: `node id: ${node.id}`,
       fill: 'white',
