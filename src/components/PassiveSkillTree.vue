@@ -2,7 +2,7 @@
 import nodesJson from '@/assets/nodes.json'
 import Node from '@/components/Nodes/Node.vue'
 import Line from '@/components/Line.vue'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 const nodes = ref(nodesJson)
 const points = ref(123)
@@ -43,10 +43,31 @@ const selectNode = (selectedNode) => {
 
   points.value -= 1
 }
+
+const childNodes = computed(() => {
+  return nodes.value.filter((node) => node.parent_id !== null)
+})
 </script>
 
 <template>
   <v-stage :config="config">
+    <v-layer>
+      <Line
+        v-for="node in childNodes"
+        :key="node.id"
+        :node="node"
+        :parent="nodes.find((parent) => parent.id === node.parent_id)"
+      />
+    </v-layer>
+    <v-layer>
+      <Node
+        v-for="node in nodes"
+        :key="node.id"
+        :node="node"
+        :parent="nodes.find((parent) => parent.id === node.parent_id)"
+        @selected="selectNode"
+      />
+    </v-layer>
     <v-layer>
       <v-text
         :config="{
@@ -58,18 +79,6 @@ const selectNode = (selectedNode) => {
           fontSize: 14,
         }"
       />
-      <template v-for="node in nodes">
-        <Node
-          :node="node"
-          :parent="nodes.find((parent) => parent.id === node.parent_id)"
-          @selected="selectNode"
-        />
-        <Line
-          v-if="node.parent_id"
-          :node="node"
-          :parent="nodes.find((parent) => parent.id === node.parent_id)"
-        />
-      </template>
     </v-layer>
   </v-stage>
 </template>
