@@ -1,5 +1,6 @@
 <script setup>
 import { useFramesSprite } from '@/composables/useFramesSprite'
+import { useSkillsSprite } from '@/composables/useSkillsSprite'
 import { computed, onMounted, ref } from 'vue'
 
 const props = defineProps({
@@ -14,6 +15,8 @@ const {
   getSelectedFrameCoords,
 } = useFramesSprite()
 
+const { sprite: skillSprite, getSkillCoords } = useSkillsSprite()
+
 const spriteCoords = computed(() => {
   if (props.node.isSelected) {
     return getSelectedFrameCoords()
@@ -25,9 +28,21 @@ const spriteCoords = computed(() => {
 
   return getNormalFrameCoords()
 })
+
+const skillCoords = getSkillCoords()
 </script>
 
 <template>
+  <v-circle
+    :config="{
+      x: node.x,
+      y: node.y,
+      radius: 13,
+      fillPatternImage: skillSprite,
+      fillPatternOffset: skillCoords,
+    }"
+  />
+
   <v-circle
     :config="{
       x: node.x,
@@ -37,5 +52,5 @@ const spriteCoords = computed(() => {
       fillPatternOffset: spriteCoords,
     }"
     @click="$emit('selected', node)"
-  ></v-circle>
+  />
 </template>
