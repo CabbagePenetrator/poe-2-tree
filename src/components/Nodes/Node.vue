@@ -1,4 +1,5 @@
 <script setup>
+import { useSpriteImage } from '@/composables/useSpriteImage'
 import { computed, onMounted, ref } from 'vue'
 
 const props = defineProps({
@@ -6,28 +7,23 @@ const props = defineProps({
   parent: Object,
 })
 
-const sprite = ref(null)
+const {
+  sprite,
+  getNormalFrameCoords,
+  getSelectableFrameCoords,
+  getSelectedFrameCoords,
+} = useSpriteImage()
 
-const spriteRegion = computed(() => {
+const spriteCoords = computed(() => {
   if (props.node.isSelected) {
-    return { x: 20, y: 315 }
+    return getSelectedFrameCoords()
   }
 
   if (props.parent && props.parent.isSelected) {
-    return { x: 345, y: 252 }
+    return getSelectableFrameCoords()
   }
 
-  return { x: 59, y: 315 }
-})
-
-onMounted(() => {
-  const imageFile = new Image()
-
-  imageFile.src = '/frames.webp'
-
-  imageFile.onload = () => {
-    sprite.value = imageFile
-  }
+  return getNormalFrameCoords()
 })
 </script>
 
@@ -38,8 +34,8 @@ onMounted(() => {
       y: node.y,
       radius: 20,
       fillPatternImage: sprite,
-      fillPatternOffsetX: spriteRegion.x,
-      fillPatternOffsetY: spriteRegion.y,
+      fillPatternOffsetX: spriteCoords.x,
+      fillPatternOffsetY: spriteCoords.y,
       fillPatternRepeat: 'no-repeat',
     }"
     @click="$emit('selected', node)"
