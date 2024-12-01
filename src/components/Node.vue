@@ -28,7 +28,7 @@ const nodeColor = () => {
       strokeWidth: 4,
     }"
     @click="$emit('selected', node)"
-    @mouseover="$emit('showToolTip', node)"
-    @mouseleave="$emit('hideToolTip', node)"
+    @mouseover="$emit('showTooltip', node)"
+    @mouseleave="$emit('hideTooltip', node)"
   />
 </template>
