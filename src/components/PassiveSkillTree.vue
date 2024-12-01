@@ -1,9 +1,9 @@
 <script setup>
 import nodesJson from '@/assets/nodes.json'
-import Node from '@/components/Node.vue'
-import Line from '@/components/Line.vue'
+import Node from '@/components/Nodes/Node.vue'
+import Line from '@/components/Lines/Line.vue'
 import Tooltip from '@/components/Tooltip.vue'
-import { onMounted, onUnmounted, useTemplateRef, ref } from 'vue'
+import { onMounted, onUnmounted, useTemplateRef, computed, ref } from 'vue'
 
 const nodes = ref(nodesJson)
 const points = ref(123)
@@ -66,6 +66,9 @@ const selectNode = (selectedNode) => {
   points.value -= 1
 }
 
+const childNodes = computed(() => {
+  return nodes.value.filter((node) => node.parent_id !== null)
+})
 const showTooltip = (node) => {
   tooltipNode.value = node
 }
@@ -101,22 +104,22 @@ const hideTooltip = (node) => {
           width: config.width,
           height: config.height,
         }"
-      >
-      </v-rect>
-      <template v-for="node in nodes" :key="node.id">
-        <Node
-          :node="node"
-          :parent="nodes.find((parent) => parent.id === node.parent_id)"
-          @selected="selectNode"
-          @showTooltip="showTooltip(node)"
-          @hideTooltip="hideTooltip(node)"
-        />
-        <Line
-          v-if="node.parent_id"
-          :node="node"
-          :parent="nodes.find((parent) => parent.id === node.parent_id)"
-        />
-      </template>
+      />
+      <Line
+        v-for="node in childNodes"
+        :key="node.id"
+        :node="node"
+        :parent="nodes.find((parent) => parent.id === node.parent_id)"
+      />
+      <Node
+        v-for="node in nodes"
+        :key="node.id"
+        :node="node"
+        :parent="nodes.find((parent) => parent.id === node.parent_id)"
+        @selected="selectNode"
+        @showTooltip="showTooltip(node)"
+        @hideTooltip="hideTooltip(node)"
+      />
     </v-layer>
     <v-layer>
       <Tooltip v-if="tooltipNode" :node="tooltipNode" />
