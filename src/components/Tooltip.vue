@@ -20,7 +20,7 @@ const {
 
 const { x, y } = useMouse()
 
-const tooltipWidth = getTooltipWidth(props.node.stats)
+const tooltipWidth = getTooltipWidth(props.node)
 const tooltipHeight = getTooltipHeight(props.node.stats)
 
 const middleImageWidth = computed(() => {
@@ -62,11 +62,11 @@ const middleImageWidth = computed(() => {
   <!-- Node name -->
   <v-text
     :config="{
-      x: x + 10,
+      x: x,
       y: y,
       width: tooltipWidth,
       height: 54,
-      text: 'Spell Damage',
+      text: node.name,
       fill: '#F9E6CA',
       align: 'center',
       verticalAlign: 'middle',

@@ -41,16 +41,22 @@ export function useNormalTooltip() {
     }
   }
 
-  const getTooltipWidth = (stats) => {
-    const baseWidth = 253
+  const getTooltipWidth = (node) => {
+    const baseWidth = 200
 
-    const longestStat = stats.reduce((longest, current) => {
-      return current.length > longest.length ? current : longest
-    }, '')
+    const nameLength = node.name.length
+    const nameWidth = nameLength * 7
 
-    const additionalWidth = Math.max(0, (longestStat.length - 29) * 8)
+    const longestStat = node.stats.reduce(
+      (longest, current) =>
+        current.length > longest.length ? current : longest,
+      '',
+    )
+    const statWidth = Math.max(0, (longestStat.length - 29) * 8)
 
-    return baseWidth + additionalWidth
+    const maxWidth = Math.max(nameWidth, statWidth)
+
+    return baseWidth + maxWidth
   }
 
   const getTooltipHeight = (stats) => {
