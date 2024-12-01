@@ -3,13 +3,36 @@ import nodesJson from '@/assets/nodes.json'
 import Node from '@/components/Node.vue'
 import Line from '@/components/Line.vue'
 import { ref } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
 
 const nodes = ref(nodesJson)
 const points = ref(123)
+const isDragging = ref(false)
 
-const config = {
+const config = ref({
   width: window.innerWidth,
   height: window.innerHeight,
+})
+
+const resizeHandler = () => {
+  config.value.width = window.innerWidth
+  config.value.height = window.innerHeight
+  console.log(config.value.width, config.value.height)
+}
+
+onMounted(() => {
+  window.addEventListener('resize', resizeHandler)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', resizeHandler)
+})
+
+const handleDragStart = () => {
+  isDragging.value = true
+}
+const handleDragEnd = () => {
+  isDragging.value = false
 }
 
 const selectNode = (selectedNode) => {
@@ -46,7 +69,9 @@ const selectNode = (selectedNode) => {
 </script>
 
 <template>
-  <v-stage :config="config">
+  <v-stage
+    :config="config"
+  >
     <v-layer>
       <v-text
         :config="{
@@ -58,6 +83,12 @@ const selectNode = (selectedNode) => {
           fontSize: 14,
         }"
       />
+    </v-layer>
+    <v-layer
+      :config="{
+        draggable: true,
+      }"
+    >
       <template v-for="node in nodes">
         <Node
           :node="node"
