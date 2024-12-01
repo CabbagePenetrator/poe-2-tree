@@ -1,5 +1,5 @@
 <script setup>
-import { useSpriteImage } from '@/composables/useSpriteImage'
+import { useFramesSprite } from '@/composables/useFramesSprite'
 import { computed, onMounted, ref } from 'vue'
 
 const props = defineProps({
@@ -12,7 +12,7 @@ const {
   getNormalFrameCoords,
   getSelectableFrameCoords,
   getSelectedFrameCoords,
-} = useSpriteImage()
+} = useFramesSprite()
 
 const spriteCoords = computed(() => {
   if (props.node.isSelected) {
@@ -34,9 +34,7 @@ const spriteCoords = computed(() => {
       y: node.y,
       radius: 20,
       fillPatternImage: sprite,
-      fillPatternOffsetX: spriteCoords.x,
-      fillPatternOffsetY: spriteCoords.y,
-      fillPatternRepeat: 'no-repeat',
+      fillPatternOffset: spriteCoords,
     }"
     @click="$emit('selected', node)"
   ></v-circle>

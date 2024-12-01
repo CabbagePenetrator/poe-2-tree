@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 
-export function useSpriteImage() {
+export function useFramesSprite() {
   const sprite = ref(null)
 
   if (!sprite.value) {
@@ -13,22 +13,22 @@ export function useSpriteImage() {
     }
   }
 
-  const getSelectedFrameCoords = () => {
-    return { x: 20, y: 315 }
+  const getNormalFrameCoords = () => {
+    return { x: 59, y: 315 }
   }
 
   const getSelectableFrameCoords = () => {
     return { x: 345, y: 252 }
   }
 
-  const getNormalFrameCoords = () => {
-    return { x: 59, y: 315 }
+  const getSelectedFrameCoords = () => {
+    return { x: 20, y: 315 }
   }
 
   return {
     sprite,
-    getSelectedFrameCoords,
-    getSelectableFrameCoords,
     getNormalFrameCoords,
+    getSelectableFrameCoords,
+    getSelectedFrameCoords,
   }
 }
