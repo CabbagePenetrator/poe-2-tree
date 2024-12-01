@@ -2,12 +2,14 @@
 import nodesJson from '@/assets/nodes.json'
 import Node from '@/components/Nodes/Node.vue'
 import Line from '@/components/Lines/Line.vue'
+import Tooltip from '@/components/Tooltip.vue'
 import { onMounted, onUnmounted, useTemplateRef, computed, ref } from 'vue'
 
 const nodes = ref(nodesJson)
 const points = ref(123)
 const dragBg = useTemplateRef('dragBg')
 
+const tooltipNode = ref(null)
 const config = ref({
   width: window.innerWidth,
   height: window.innerHeight,
@@ -67,6 +69,13 @@ const selectNode = (selectedNode) => {
 const childNodes = computed(() => {
   return nodes.value.filter((node) => node.parent_id !== null)
 })
+const showTooltip = (node) => {
+  tooltipNode.value = node
+}
+
+const hideTooltip = (node) => {
+  tooltipNode.value = null
+}
 </script>
 
 <template>
@@ -108,7 +117,12 @@ const childNodes = computed(() => {
         :node="node"
         :parent="nodes.find((parent) => parent.id === node.parent_id)"
         @selected="selectNode"
+        @showTooltip="showTooltip(node)"
+        @hideTooltip="hideTooltip(node)"
       />
+    </v-layer>
+    <v-layer>
+      <Tooltip v-if="tooltipNode" :node="tooltipNode" />
     </v-layer>
   </v-stage>
 </template>

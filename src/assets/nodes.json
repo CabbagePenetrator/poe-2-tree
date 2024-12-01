@@ -2,33 +2,44 @@
   {
     "id": 1,
     "parent_id": null,
-    "x": 300,
+    "name": "Spell Damage and Mana",
+    "x": 1050,
     "y": 500,
     "isSelected": false,
+    "stats": ["16% increased Spell Damage", "+16 to maximum Mana"],
     "skill": "spell_damage_and_mana"
   },
   {
     "id": 2,
     "parent_id": 1,
-    "x": 380,
+    "name": "Accuracy",
+    "x": 1130,
     "y": 515,
     "isSelected": false,
+    "stats": ["12% increased Global Accuracy Rating"],
     "skill": "accuracy"
   },
   {
     "id": 3,
     "parent_id": 2,
-    "x": 460,
+    "name": "Armour and Evasion",
+    "x": 1210,
     "y": 460,
     "isSelected": false,
+    "stats": [
+      "12% increased Evasion Rating and Armour",
+      "+4% to all Elemental Resistances"
+    ],
     "skill": "armour_and_evasion"
   },
   {
     "id": 4,
     "parent_id": 2,
-    "x": 460,
+    "name": "Attack Damage",
+    "x": 1210,
     "y": 570,
     "isSelected": false,
+    "stats": ["12% increased Attack Damage"],
     "skill": "attack_damage"
   }
 ]
