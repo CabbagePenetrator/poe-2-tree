@@ -6,14 +6,13 @@ import { onMounted, onUnmounted, useTemplateRef, ref } from 'vue'
 
 const nodes = ref(nodesJson)
 const points = ref(123)
-const isDragging = ref(false)
+const dragBg = useTemplateRef('dragBg')
 
 const config = ref({
   width: window.innerWidth,
   height: window.innerHeight,
 })
 
-const dragBg = useTemplateRef('dragBg')
 
 const resizeHandler = () => {
   config.value.width = window.innerWidth
@@ -28,13 +27,7 @@ onUnmounted(() => {
   window.removeEventListener('resize', resizeHandler)
 })
 
-const handleDragStart = () => {
-  isDragging.value = true
-}
-
 const handleDragEnd = () => {
-  isDragging.value = false
-
   if (dragBgRef.value) {
     dragBgRef.value.getNode().absolutePosition({ x: 0, y: 0 })
   }
@@ -88,7 +81,6 @@ const selectNode = (selectedNode) => {
       />
     </v-layer>
     <v-layer
-      @dragstart="handleDragStart"
       @dragend="handleDragEnd"
       :config="{
         draggable: true,
