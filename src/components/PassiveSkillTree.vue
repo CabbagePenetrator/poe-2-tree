@@ -28,8 +28,8 @@ onUnmounted(() => {
 })
 
 const handleDragEnd = () => {
-  if (dragBgRef.value) {
-    dragBgRef.value.getNode().absolutePosition({ x: 0, y: 0 })
+  if (dragBg.value) {
+    dragBg.value.getNode().absolutePosition({ x: 0, y: 0 })
   }
 }
 
