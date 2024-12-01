@@ -13,7 +13,7 @@ const config = ref({
   height: window.innerHeight,
 })
 
-const dragBgRef = useTemplateRef('dragBg')
+const dragBg = useTemplateRef('dragBg')
 
 const resizeHandler = () => {
   config.value.width = window.innerWidth
