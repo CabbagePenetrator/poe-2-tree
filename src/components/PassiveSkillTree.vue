@@ -23,7 +23,6 @@ const resizeHandler = () => {
 
 onMounted(() => {
   window.addEventListener('resize', resizeHandler)
-  console.log(dragBgRef.value)
 })
 
 onUnmounted(() => {
@@ -38,8 +37,7 @@ const handleDragEnd = () => {
   isDragging.value = false
 
   if (dragBgRef.value) {
-    dragBgRef.value.absolutePosition({ x: 0, y: 0 })
-    console.log('end', dragBgRef.value.absolutePosition())
+    dragBgRef.value.getNode().absolutePosition({ x: 0, y: 0 })
   }
 }
 
@@ -102,7 +100,6 @@ const selectNode = (selectedNode) => {
         :config="{
           width: config.width,
           height: config.height,
-          fill: 'red',
         }"
       >
       </v-rect>
