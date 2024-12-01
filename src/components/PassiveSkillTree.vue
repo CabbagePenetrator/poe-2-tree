@@ -2,10 +2,13 @@
 import nodesJson from '@/assets/nodes.json'
 import Node from '@/components/Node.vue'
 import Line from '@/components/Line.vue'
+import ToolTip from '@/components/ToolTip.vue'
 import { ref } from 'vue'
 
 const nodes = ref(nodesJson)
 const points = ref(123)
+
+const toolTipNode = ref(null)
 
 const config = {
   width: window.innerWidth,
@@ -43,6 +46,14 @@ const selectNode = (selectedNode) => {
 
   points.value -= 1
 }
+
+const showToolTip = (node) => {
+  toolTipNode.value = node
+}
+
+const hideToolTip = (node) => {
+  toolTipNode.value = null
+}
 </script>
 
 <template>
@@ -58,11 +69,13 @@ const selectNode = (selectedNode) => {
           fontSize: 14,
         }"
       />
-      <template v-for="node in nodes">
+      <template v-for="node in nodes" :key="node.id">
         <Node
           :node="node"
           :parent="nodes.find((parent) => parent.id === node.parent_id)"
           @selected="selectNode"
+          @showToolTip="showToolTip(node)"
+          @hideToolTip="hideToolTip(node)"
         />
         <Line
           v-if="node.parent_id"
@@ -70,6 +83,9 @@ const selectNode = (selectedNode) => {
           :parent="nodes.find((parent) => parent.id === node.parent_id)"
         />
       </template>
+    </v-layer>
+    <v-layer>
+      <ToolTip v-if="toolTipNode" :node="toolTipNode" />
     </v-layer>
   </v-stage>
 </template>
