@@ -2,14 +2,34 @@
 import nodesJson from '@/assets/nodes.json'
 import Node from '@/components/Nodes/Node.vue'
 import Line from '@/components/Lines/Line.vue'
-import { computed, ref } from 'vue'
+import { onMounted, onUnmounted, useTemplateRef, computed, ref } from 'vue'
 
 const nodes = ref(nodesJson)
 const points = ref(123)
+const dragBg = useTemplateRef('dragBg')
 
-const config = {
+const config = ref({
   width: window.innerWidth,
   height: window.innerHeight,
+})
+
+const resizeHandler = () => {
+  config.value.width = window.innerWidth
+  config.value.height = window.innerHeight
+}
+
+onMounted(() => {
+  window.addEventListener('resize', resizeHandler)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', resizeHandler)
+})
+
+const handleDragEnd = () => {
+  if (dragBg.value) {
+    dragBg.value.getNode().absolutePosition({ x: 0, y: 0 })
+  }
 }
 
 const selectNode = (selectedNode) => {
@@ -52,23 +72,6 @@ const childNodes = computed(() => {
 <template>
   <v-stage :config="config">
     <v-layer>
-      <Line
-        v-for="node in childNodes"
-        :key="node.id"
-        :node="node"
-        :parent="nodes.find((parent) => parent.id === node.parent_id)"
-      />
-    </v-layer>
-    <v-layer>
-      <Node
-        v-for="node in nodes"
-        :key="node.id"
-        :node="node"
-        :parent="nodes.find((parent) => parent.id === node.parent_id)"
-        @selected="selectNode"
-      />
-    </v-layer>
-    <v-layer>
       <v-text
         :config="{
           x: 830,
@@ -78,6 +81,33 @@ const childNodes = computed(() => {
           fontStyle: 'bold',
           fontSize: 14,
         }"
+      />
+    </v-layer>
+    <v-layer
+      @dragend="handleDragEnd"
+      :config="{
+        draggable: true,
+      }"
+    >
+      <v-rect
+        ref="dragBg"
+        :config="{
+          width: config.width,
+          height: config.height,
+        }"
+      />
+      <Line
+        v-for="node in childNodes"
+        :key="node.id"
+        :node="node"
+        :parent="nodes.find((parent) => parent.id === node.parent_id)"
+      />
+      <Node
+        v-for="node in nodes"
+        :key="node.id"
+        :node="node"
+        :parent="nodes.find((parent) => parent.id === node.parent_id)"
+        @selected="selectNode"
       />
     </v-layer>
   </v-stage>
