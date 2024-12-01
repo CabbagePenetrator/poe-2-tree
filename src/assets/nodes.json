@@ -2,28 +2,28 @@
   {
     "id": 1,
     "parent_id": null,
-    "x": 1050,
+    "x": 300,
     "y": 500,
     "isSelected": false
   },
   {
     "id": 2,
     "parent_id": 1,
-    "x": 1130,
+    "x": 380,
     "y": 515,
     "isSelected": false
   },
   {
     "id": 3,
     "parent_id": 2,
-    "x": 1210,
+    "x": 460,
     "y": 460,
     "isSelected": false
   },
   {
     "id": 4,
     "parent_id": 2,
-    "x": 1210,
+    "x": 460,
     "y": 570,
     "isSelected": false
   }
