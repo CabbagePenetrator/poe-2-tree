@@ -64,7 +64,7 @@ const middleImageWidth = computed(() => {
     :config="{
       x: x + 10,
       y: y,
-      width: 263,
+      width: tooltipWidth,
       height: 54,
       text: 'Spell Damage',
       fill: '#F9E6CA',
