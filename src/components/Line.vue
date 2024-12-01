@@ -1,29 +1,53 @@
 <script setup>
+import { useLinesSprite } from '@/composables/useLinesSprite'
+import { computed, ref } from 'vue'
+
 const props = defineProps({
   node: Object,
   parent: Object,
 })
 
-const lineColor = () => {
+const {
+  sprite,
+  getNormalLineCoords,
+  getSelectableLineCoords,
+  getSelectedLineCoords,
+} = useLinesSprite()
+
+const lineThickness = ref(5)
+
+const spriteCoords = computed(() => {
   if (props.node.isSelected) {
-    return '#eeebdd'
+    return getSelectedLineCoords()
   }
 
   if (props.parent && props.parent.isSelected) {
-    return '#292517'
+    return getSelectableLineCoords()
   }
 
-  return '#2e2d22'
+  return getNormalLineCoords()
+})
+
+const calculateDistance = (x1, y1, x2, y2) => {
+  return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+}
+const calculateRotation = (x1, y1, x2, y2) => {
+  const radians = Math.atan2(y2 - y1, x2 - x1)
+  return radians * (180 / Math.PI)
 }
 </script>
 
 <template>
-  <v-line
+  <v-rect
     :config="{
-      points: [node.x, node.y, parent.x, parent.y],
-      stroke: lineColor(),
-      strokeWidth: 4,
-      lineCap: 'round',
+      x: node.x,
+      y: node.y,
+      width: calculateDistance(node.x, node.y, parent.x, parent.y),
+      height: lineThickness,
+      offsetY: lineThickness / 2,
+      rotation: calculateRotation(node.x, node.y, parent.x, parent.y),
+      fillPatternImage: sprite,
+      fillPatternOffset: spriteCoords,
     }"
   />
 </template>
