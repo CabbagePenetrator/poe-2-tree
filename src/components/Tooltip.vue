@@ -1,7 +1,7 @@
 <script setup>
 import { useNormalTooltip } from '@/composables/useNormalTooltip'
 import { useMouse } from '@vueuse/core'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 const props = defineProps({
   node: Object,
@@ -64,7 +64,7 @@ const middleImageWidth = computed(() => {
     :config="{
       x: x + 10,
       y: y,
-      width: tooltipWidth - 10,
+      width: tooltipWidth,
       height: 54,
       text: node?.name,
       fill: '#F9E6CA',
@@ -78,7 +78,7 @@ const middleImageWidth = computed(() => {
   <!-- Node stats -->
   <v-rect
     :config="{
-      x: x,
+      x: x + 10,
       y: y + 54,
       width: tooltipWidth,
       height: tooltipHeight,
@@ -90,7 +90,7 @@ const middleImageWidth = computed(() => {
     v-for="(stat, index) in node.stats"
     :key="index"
     :config="{
-      x: x + 20,
+      x: x + 10 + 20,
       y: y + 66 + index * 20,
       width: tooltipWidth,
       text: stat,

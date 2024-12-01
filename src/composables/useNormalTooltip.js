@@ -42,7 +42,7 @@ export function useNormalTooltip() {
   }
 
   const getTooltipWidth = (node) => {
-    const baseWidth = 200
+    const baseWidth = 240
 
     const nameLength = node.name.length
     const nameWidth = nameLength * 7
@@ -52,7 +52,7 @@ export function useNormalTooltip() {
         current.length > longest.length ? current : longest,
       '',
     )
-    const statWidth = Math.max(0, (longestStat.length - 29) * 8)
+    const statWidth = Math.max(0, (longestStat.length - 29) * 10)
 
     const maxWidth = Math.max(nameWidth, statWidth)
 
