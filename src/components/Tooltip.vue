@@ -83,7 +83,7 @@ const middleImageWidth = computed(() => {
       width: tooltipWidth,
       height: tooltipHeight,
       fill: 'black',
-      opacity: 0.5,
+      opacity: 0.7,
     }"
   />
   <v-text
