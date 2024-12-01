@@ -18,7 +18,6 @@ const dragBg = useTemplateRef('dragBg')
 const resizeHandler = () => {
   config.value.width = window.innerWidth
   config.value.height = window.innerHeight
-  console.log(config.value.width, config.value.height)
 }
 
 onMounted(() => {
