@@ -33,7 +33,7 @@ const middleImageWidth = computed(() => {
   <!-- Header -->
   <v-image
     :config="{
-      x: x,
+      x: x + 10,
       y: y,
       width: leftImageWidth,
       height: headerHeight,
@@ -42,7 +42,7 @@ const middleImageWidth = computed(() => {
   />
   <v-image
     :config="{
-      x: x + leftImageWidth,
+      x: x + 10 + leftImageWidth,
       y: y,
       width: middleImageWidth,
       height: headerHeight,
@@ -51,7 +51,7 @@ const middleImageWidth = computed(() => {
   />
   <v-image
     :config="{
-      x: x + rightImageWidth + middleImageWidth,
+      x: x + 10 + rightImageWidth + middleImageWidth,
       y: y,
       width: rightImageWidth,
       height: headerHeight,
