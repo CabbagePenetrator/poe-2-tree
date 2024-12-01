@@ -15,7 +15,7 @@ const {
   getSelectedFrameCoords,
 } = useFramesSprite()
 
-const { sprite: skillSprite, getSkillCoords } = useSkillsSprite()
+const { sprite: skillSprite, getCoordsForSkill } = useSkillsSprite()
 
 const spriteCoords = computed(() => {
   if (props.node.isSelected) {
@@ -29,7 +29,7 @@ const spriteCoords = computed(() => {
   return getNormalFrameCoords()
 })
 
-const skillCoords = getSkillCoords()
+const skillCoords = getCoordsForSkill(props.node.skill)
 </script>
 
 <template>

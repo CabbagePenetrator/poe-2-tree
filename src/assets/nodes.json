@@ -4,27 +4,31 @@
     "parent_id": null,
     "x": 300,
     "y": 500,
-    "isSelected": false
+    "isSelected": false,
+    "skill": "spell_damage_and_mana"
   },
   {
     "id": 2,
     "parent_id": 1,
     "x": 380,
     "y": 515,
-    "isSelected": false
+    "isSelected": false,
+    "skill": "accuracy"
   },
   {
     "id": 3,
     "parent_id": 2,
     "x": 460,
     "y": 460,
-    "isSelected": false
+    "isSelected": false,
+    "skill": "armour_and_evasion"
   },
   {
     "id": 4,
     "parent_id": 2,
     "x": 460,
     "y": 570,
-    "isSelected": false
+    "isSelected": false,
+    "skill": "attack_damage"
   }
 ]
