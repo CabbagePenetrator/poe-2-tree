@@ -7,49 +7,59 @@ const props = defineProps({
   node: Object,
 })
 
-const { left, middle, right } = useNormalTooltip()
+const {
+  leftImage,
+  leftImageWidth,
+  middleImage,
+  rightImage,
+  rightImageWidth,
+  headerHeight,
+  getTooltipWidth,
+  getTooltipHeight,
+} = useNormalTooltip()
 
 const { x, y } = useMouse()
 
-const tooltipHeight = computed(() => {
-  let height = 20
+const tooltipWidth = getTooltipWidth(props.node.stats)
+const tooltipHeight = getTooltipHeight(props.node.stats)
 
-  props.node.stats.forEach((stat, index) => {
-    height += 20
-  })
-
-  return height
+const middleImageWidth = computed(() => {
+  let availableWidth = tooltipWidth - leftImageWidth - rightImageWidth
+  return availableWidth > 0 ? availableWidth : 0
 })
 </script>
 
 <template>
+  <!-- Header -->
   <v-image
     :config="{
-      x: x + 10,
+      x: x,
       y: y,
-      width: 44,
-      height: 54,
-      image: left,
+      width: leftImageWidth,
+      height: headerHeight,
+      image: leftImage,
     }"
   />
   <v-image
     :config="{
-      x: x + 44,
+      x: x + leftImageWidth,
       y: y,
-      width: 175,
-      height: 54,
-      fillPatternImage: middle,
+      width: middleImageWidth,
+      height: headerHeight,
+      fillPatternImage: middleImage,
     }"
   />
   <v-image
     :config="{
-      x: x + 219,
+      x: x + rightImageWidth + middleImageWidth,
       y: y,
-      width: 44,
-      height: 54,
-      image: right,
+      width: rightImageWidth,
+      height: headerHeight,
+      image: rightImage,
     }"
   />
+
+  <!-- Node name -->
   <v-text
     :config="{
       x: x + 10,
@@ -64,11 +74,13 @@ const tooltipHeight = computed(() => {
       fontFamily: 'Fontin',
     }"
   />
+
+  <!-- Node stats -->
   <v-rect
     :config="{
-      x: x + 10,
+      x: x,
       y: y + 54,
-      width: 253,
+      width: tooltipWidth,
       height: tooltipHeight,
       fill: 'black',
       opacity: 0.5,
@@ -80,7 +92,7 @@ const tooltipHeight = computed(() => {
     :config="{
       x: x + 20,
       y: y + 66 + index * 20,
-      width: 263,
+      width: tooltipWidth,
       text: stat,
       fill: '#7676DE',
       align: 'left',
