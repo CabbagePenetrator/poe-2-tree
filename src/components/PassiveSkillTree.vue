@@ -3,6 +3,7 @@ import nodesJson from '@/assets/nodes.json'
 import Node from '@/components/Nodes/Node.vue'
 import Line from '@/components/Lines/Line.vue'
 import Tooltip from '@/components/Tooltip.vue'
+import Hud from '@/components/Hud.vue'
 import { onMounted, onUnmounted, useTemplateRef, computed, ref } from 'vue'
 
 const nodes = ref(nodesJson)
@@ -124,16 +125,7 @@ const hideTooltip = (node) => {
       <Tooltip v-if="tooltipNode" :node="tooltipNode" />
     </v-layer>
     <v-layer>
-      <v-text
-        :config="{
-          x: 830,
-          y: 40,
-          text: `${points} Points Left`,
-          fill: 'white',
-          fontStyle: 'bold',
-          fontSize: 14,
-        }"
-      />
+      <Hud :stageSize="config" />
     </v-layer>
   </v-stage>
 </template>
