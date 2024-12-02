@@ -3,9 +3,10 @@ import SkillPoints from '@/components/Hud/SkillPoints.vue'
 
 const props = defineProps({
   stageSize: Object,
+  nodes: Object,
 })
 </script>
 
 <template>
-  <SkillPoints :stageSize="stageSize" />
+  <SkillPoints :nodes='props.nodes' :stageSize="props.stageSize" />
 </template>

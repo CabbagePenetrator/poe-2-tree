@@ -125,7 +125,7 @@ const hideTooltip = (node) => {
       <Tooltip v-if="tooltipNode" :node="tooltipNode" />
     </v-layer>
     <v-layer>
-      <Hud :stageSize="config" />
+      <Hud :nodes='nodes' :stageSize="config" />
     </v-layer>
   </v-stage>
 </template>
