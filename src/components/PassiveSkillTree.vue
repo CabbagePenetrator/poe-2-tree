@@ -89,18 +89,6 @@ const hideTooltip = (node) => {
 
 <template>
   <v-stage :config="config">
-    <v-layer>
-      <v-text
-        :config="{
-          x: 830,
-          y: 40,
-          text: `${points} Points Left`,
-          fill: 'white',
-          fontStyle: 'bold',
-          fontSize: 14,
-        }"
-      />
-    </v-layer>
     <v-layer
       @dragend="handleDragEnd"
       :config="{
@@ -134,6 +122,18 @@ const hideTooltip = (node) => {
     </v-layer>
     <v-layer>
       <Tooltip v-if="tooltipNode" :node="tooltipNode" />
+    </v-layer>
+    <v-layer>
+      <v-text
+        :config="{
+          x: 830,
+          y: 40,
+          text: `${points} Points Left`,
+          fill: 'white',
+          fontStyle: 'bold',
+          fontSize: 14,
+        }"
+      />
     </v-layer>
   </v-stage>
 </template>
