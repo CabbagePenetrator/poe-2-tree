@@ -2,6 +2,7 @@
 const props = defineProps({
   stageSize: Object,
   nodes: Object,
+  points: Number,
 })
 
 const skillPointsImage = new Image()
@@ -27,7 +28,7 @@ skillPointsImage.src = '/poe2-skill-points.webp'
       y: (skillPointsImage.height/3)/2.5,
       width: 50,
       height: (skillPointsImage.height/3)/2.5,
-      text: nodes.length - nodes.filter((node) => node.isSelected).length,
+      text: points,
       fill: '#F9E6CA',
       fontSize: 22,
       fontFamily: 'Fontin',

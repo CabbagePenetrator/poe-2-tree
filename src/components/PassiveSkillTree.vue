@@ -7,7 +7,7 @@ import Hud from '@/components/Hud.vue'
 import { onMounted, onUnmounted, useTemplateRef, computed, ref } from 'vue'
 
 const nodes = ref(nodesJson)
-const points = ref(123)
+const points = ref(3)
 const dragBg = useTemplateRef('dragBg')
 const scaleGroup = useTemplateRef('scaleGroup')
 const scale = ref(1)
@@ -125,7 +125,7 @@ const hideTooltip = (node) => {
       <Tooltip v-if="tooltipNode" :node="tooltipNode" />
     </v-layer>
     <v-layer>
-      <Hud :nodes='nodes' :stageSize="config" />
+      <Hud :nodes='nodes' :points='points' :stageSize="config" />
     </v-layer>
   </v-stage>
 </template>
