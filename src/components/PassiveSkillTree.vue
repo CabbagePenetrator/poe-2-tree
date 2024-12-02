@@ -25,19 +25,15 @@ const resizeHandler = () => {
 const scrollHandler = (e) => {
   scale.value -= e.deltaY * 0.001
   scaleGroup.value.getNode().scale({ x: scale.value, y: scale.value })
-  //console.log('===Scrolling===')
-  //console.log(nodeLayer.value.getNode())
 }
 
 onMounted(() => {
   window.addEventListener('resize', resizeHandler)
-
   window.addEventListener('wheel', scrollHandler)
 })
 
 onUnmounted(() => {
   window.removeEventListener('resize', resizeHandler)
-
   window.removeEventListener('wheel', scrollHandler)
 })
 
