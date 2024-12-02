@@ -27,3 +27,7 @@
     font-display: swap;
   }
 }
+
+body {
+  overscroll-behavior-y: none;
+}
