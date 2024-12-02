@@ -8,6 +8,8 @@ import { onMounted, onUnmounted, useTemplateRef, computed, ref } from 'vue'
 const nodes = ref(nodesJson)
 const points = ref(123)
 const dragBg = useTemplateRef('dragBg')
+const scaleGroup = useTemplateRef('scaleGroup')
+const scale = ref(1)
 
 const tooltipNode = ref(null)
 const config = ref({
@@ -20,12 +22,23 @@ const resizeHandler = () => {
   config.value.height = window.innerHeight
 }
 
+const scrollHandler = (e) => {
+  scale.value -= e.deltaY * 0.001
+  scaleGroup.value.getNode().scale({ x: scale.value, y: scale.value })
+  //console.log('===Scrolling===')
+  //console.log(nodeLayer.value.getNode())
+}
+
 onMounted(() => {
   window.addEventListener('resize', resizeHandler)
+
+  window.addEventListener('wheel', scrollHandler)
 })
 
 onUnmounted(() => {
   window.removeEventListener('resize', resizeHandler)
+
+  window.removeEventListener('wheel', scrollHandler)
 })
 
 const handleDragEnd = () => {
@@ -105,21 +118,23 @@ const hideTooltip = (node) => {
           height: config.height,
         }"
       />
-      <Line
-        v-for="node in childNodes"
-        :key="node.id"
-        :node="node"
-        :parent="nodes.find((parent) => parent.id === node.parent_id)"
-      />
-      <Node
-        v-for="node in nodes"
-        :key="node.id"
-        :node="node"
-        :parent="nodes.find((parent) => parent.id === node.parent_id)"
-        @selected="selectNode"
-        @showTooltip="showTooltip(node)"
-        @hideTooltip="hideTooltip(node)"
-      />
+      <v-group ref="scaleGroup">
+        <Line
+          v-for="node in childNodes"
+          :key="node.id"
+          :node="node"
+          :parent="nodes.find((parent) => parent.id === node.parent_id)"
+        />
+        <Node
+          v-for="node in nodes"
+          :key="node.id"
+          :node="node"
+          :parent="nodes.find((parent) => parent.id === node.parent_id)"
+          @selected="selectNode"
+          @showTooltip="showTooltip(node)"
+          @hideTooltip="hideTooltip(node)"
+        />
+      </v-group>
     </v-layer>
     <v-layer>
       <Tooltip v-if="tooltipNode" :node="tooltipNode" />
